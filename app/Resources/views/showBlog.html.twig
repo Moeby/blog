@@ -1,0 +1,20 @@
+{# Show other users blog Twig Template #}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}showMyBlog{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block body %}            
+            {% for key, post in posts %}
+                <p>{{ post.title }}</p>
+                <p>{{ post.text }}</p>
+                <p>{{ post.publishedDate }}</p>
+            {% endfor %}
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

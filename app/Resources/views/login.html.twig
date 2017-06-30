@@ -1,0 +1,31 @@
+{# Login Twig Template #}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Login{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block body %}
+            <form>
+                <table>
+                    <tr>
+                        <td>Username:</td> 
+                        <td><input type="text" name="username"></td> 
+                    </tr>
+                    <tr>
+                        <td>Password:</td> 
+                        <td><input type="text" name="password"></td> 
+                    </tr>
+                    <tr>
+                        <td></td> 
+                        <td><input type="submit" value="OK"></td> 
+                    </tr>
+                </table>
+            </form>
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

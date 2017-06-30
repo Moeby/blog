@@ -1,0 +1,29 @@
+{# Show logged in users blog Twig Template #}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}showMyBlog{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block body %}
+            <form>
+                <input type="button" value="change description">
+                <input type="button">
+            </form>
+            
+            {% for key, post in posts %}
+                <p>{{ post.title }}</p>
+                <p>{{ post.text }}</p>                
+                <p>{{ post.publishedDate }}</p>
+                <form>
+                    <input type="button" value="edit">
+                    <input type="delete">
+                </form>
+            {% endfor %}
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>
