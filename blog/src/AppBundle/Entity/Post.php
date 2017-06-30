@@ -144,4 +144,33 @@ class Post
     {
         return $this->blog;
     }
+    /**
+     * @var \DateTime
+     */
+    private $publishedDate;
+
+
+    /**
+     * Set publishedDate
+     *
+     * @param \DateTime $publishedDate
+     *
+     * @return Post
+     */
+    public function setPublishedDate($publishedDate)
+    {
+        $this->publishedDate = $publishedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get publishedDate
+     *
+     * @return \DateTime
+     */
+    public function getPublishedDate()
+    {
+        return $this->publishedDate;
+    }
 }
