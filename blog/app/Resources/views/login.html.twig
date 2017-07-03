@@ -1,0 +1,9 @@
+{# Login Twig Template #}
+{% extends 'base.html.twig' %}
+    {% block body %}
+        <form>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            {{ form_end(form) }}
+        </form>
+    {% endblock %}
