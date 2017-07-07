@@ -46,6 +46,13 @@ class Post
      * })
      */
     private $blog;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="published_date", type="date", nullable=false)
+     */
+    private $publishedDate;
 
 
 
@@ -144,12 +151,7 @@ class Post
     {
         return $this->blog;
     }
-    /**
-     * @var \DateTime
-     */
-    private $publishedDate;
-
-
+    
     /**
      * Set publishedDate
      *
