@@ -5,24 +5,26 @@
         <title>{% block title %}Blogify{% endblock %}</title>
         {% block stylesheets %}
             {% stylesheets 'bundles/app/css/*' filter='cssrewrite' %}
-                <link rel="stylesheet" href="{{ asset_url }}" />
+            <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
         {% endblock %}
-        
+
     </head>
     <body>
-        <div id="content">
-            {% block header %}
-                <header>
-                    <div id="centerTitle">
-                        <h1>{{ title }}</h1>
-                    </div>
-                    <input id="search" type="text" name="search" placeholder="Search blog">
-                </header>
-            {% endblock %}
-            <div id="body">
+        {% block stylingdiv %}<div id="default">{% endblock %}
+            <div id="content">
+                {% block header %}
+                    <header>
+                        <div id="centerTitle">
+                            <h1>{{ title }}</h1>
+                        </div>
+                        <input id="search" type="text" name="search" placeholder="Search blog">
+                    </header>
+                {% endblock %}
+                <div id="body">
                 {% block body %}{% endblock %}
             </div>
         </div>
-    </body>
+    </div>
+</body>
 </html>

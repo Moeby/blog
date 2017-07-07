@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * User
@@ -10,10 +12,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="username_UNIQUE", columns={"username"})}, indexes={@ORM\Index(name="fk_user_blog_idx", columns={"blog_id"})})
  * @ORM\Entity
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var string
+     * @Assert\NotBlank()
      *
      * @ORM\Column(name="username", type="string", length=45, nullable=false)
      */
@@ -21,6 +24,7 @@ class User
 
     /**
      * @var string
+     * @Assert\NotBlank()
      *
      * @ORM\Column(name="password", type="string", length=72, nullable=false)
      */
@@ -159,4 +163,17 @@ class User
     {
         return $this->blog;
     }
+
+    public function eraseCredentials() {
+        
+    }
+
+    public function getRoles() {
+        
+    }
+
+    public function getSalt() {
+        
+    }
+
 }

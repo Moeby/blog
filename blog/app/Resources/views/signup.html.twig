@@ -5,13 +5,10 @@
     {{ form_start(form) }}
     {{ form_widget(form) }}
     {{ form_end(form) }}
-
-    {% if errors is not empty %}
+    
+    {% if error is not empty %}
         <div id="errors">
-            {% for error in errors %}
-                <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
-            {% endfor %}
+                <p>{{ error }}</p>
         </div>
     {% endif %}
-    <a href="{{ path('signup') }}">Sign up here!</a>
 {% endblock %}
