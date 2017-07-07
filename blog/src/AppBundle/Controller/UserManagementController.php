@@ -14,39 +14,42 @@ use AppBundle\Entity\User;
 use AppBundle\Entity\Blog;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Doctrine\ORM\EntityManagerInterface;
 
 class UserManagementController extends Controller {
+    
+    /**
+     * @Route("/login_check", name="login_check")
+     */
+    public function checkLoginAction(){
+        
+    }
 
     /**
      * @Route("/login", name="login")
      */
-    public function loginAction(Request $request) {
+    public function loginAction(Request $request, AuthenticationUtils $authUtils) {
+        $error = $authUtils->getLastAuthenticationError();
+        $lastUsername = $authUtils->getLastUsername();
+        
+        $em = $this->get('doctrine')->getManager();
         $user = new User();
         $form = $this->createFormBuilder($user)
+                ->setAction($this->generateUrl('login_check'))
                 ->add('username', TextType::class)
                 ->add('password', PasswordType::class)
                 ->add('save', SubmitType::class, array('label' => 'Login'))
                 ->getForm()
         ;
-        $form->handleRequest($request);
-        $errors = $form->getErrors(true);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $user = $form->getData();
-
-            //TODO: check login
-            var_dump($user);
-            exit;
-
-            return $this->redirectToRoute('task_success');
-        }
+        
+        
 
         return $this->render('login.html.twig', [
                     'title' => "Login",
                     'form' => $form->createView(),
-                    'errors' => $errors,
+                    'error' => $error,
+                    'last_username' => $lastUsername
         ]);
     }
 
@@ -100,6 +103,7 @@ class UserManagementController extends Controller {
                     'error' => $error
         ]);
     }
+    
     
         /**
      * @Route("/add", name="addBlog")

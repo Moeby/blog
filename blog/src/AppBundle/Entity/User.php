@@ -12,13 +12,13 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="user", uniqueConstraints={@ORM\UniqueConstraint(name="username_UNIQUE", columns={"username"})}, indexes={@ORM\Index(name="fk_user_blog_idx", columns={"blog_id"})})
  * @ORM\Entity
  */
-class User implements UserInterface
+class User implements UserInterface,\Serializable
 {
     /**
      * @var string
      * @Assert\NotBlank()
      *
-     * @ORM\Column(name="username", type="string", length=45, nullable=false)
+     * @ORM\Column(name="username", type="string", length=45, nullable=false, unique=true)
      */
     private $username;
 
@@ -169,11 +169,31 @@ class User implements UserInterface
     }
 
     public function getRoles() {
-        
+        return array('ROLE_USER');
     }
 
     public function getSalt() {
-        
+         return null;
+    }
+
+    public function serialize() {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    public function unserialize($serialized) {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+        ) = unserialize($serialized);
     }
 
 }
