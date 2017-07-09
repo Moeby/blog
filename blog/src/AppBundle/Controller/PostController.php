@@ -8,19 +8,20 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use AppBundle\Entity\Post;
-use AppBundle\Entity\Blog;
 use Symfony\Component\HttpFoundation\Request;
 
 class PostController extends Controller {
+
     /**
      * @Route("/newpost", name="newpost")
-     */    
-    public function addPostAction(Request $request){
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function addPostAction(Request $request) {
         $post = new Post();
         $form = $this->createFormBuilder($post)
                 ->add('title', TextType::class)
                 ->add('text', TextareaType::class)
-                ->add('add', SubmitType::class, array('label' => 'AddPost'))                
+                ->add('add', SubmitType::class, array('label' => 'AddPost'))
                 ->getForm()
         ;
         $form->handleRequest($request);
@@ -29,62 +30,78 @@ class PostController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->get('doctrine')->getManager();
             $post = $form->getData();
-            //TODO GetBlog ändern
-            $blog = new Blog();
-            $post->setBlog($blog);
+            $post->setBlog($this->getUser()->getBlog());
             $em->persist($post);
             $em->flush();
 
-            exit;
-
-            return $this->redirectToRoute('task_success');
+            return $this->redirectToRoute('myblog');
         }
 
-        return $this->render('addPost.html.twig', [
+        return $this->render('editPost.html.twig', [
                     'title' => "Add Post",
                     'form' => $form->createView(),
                     'errors' => $errors,
         ]);
     }
-    
+
     /**
-     * @Route("/editpost", name="editpost")
-     */        
-    public function editPostAction(Request $request /*, POSTID*/){
-        //TODO: how do I get the right Post
-        $post = new Post();
-        $form = $this->createFormBuilder($post)
-                ->add('title', TextType::class, array('data' => $post->getTitle()))
-                ->add('text', TextareaType::class, array('data' => $post->getText()))
-                ->add('save', SubmitType::class, array('label' => 'EditPost'))                
-                ->getForm()
-        ;
-        $form->handleRequest($request);
-        $errors = $form->getErrors(true);
+     * @Route("/editpost/{id}", name="editpost", requirements={"id": "\d+"})
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function editPostAction($id, Request $request) {
+        $em = $this->get('doctrine')->getManager();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            
-            $post = $form->getData();
+        // get post for id
+        $query = $em->createQuery('SELECT p FROM AppBundle:Post p WHERE p.id = ?1');
+        $query->setParameter(1, $id);
+        $results = $query->getResult();
 
-            //TODO: check login
-            var_dump($post);
-            exit;
+        if (!empty($results)) {
+            $form = $this->createFormBuilder($results[0])
+                    ->add('title', TextType::class)
+                    ->add('text', TextareaType::class)
+                    ->add('save', SubmitType::class, array('label' => 'EditPost'))
+                    ->getForm()
+            ;
 
-            return $this->redirectToRoute('task_success');
+            $form->handleRequest($request);
+            $errors = $form->getErrors(true);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em = $this->get('doctrine')->getManager();
+                $post = $form->getData();
+                $em->persist($post);
+                $em->flush();
+                
+                return $this->redirectToRoute('myblog');
+            }
+
+            return $this->render('editPost.html.twig', [
+                        'title' => "Edit Post",
+                        'form' => $form->createView(),
+                        'errors' => null,
+            ]);
+        }
+    }
+
+    /**
+     * @Route("/deletepost/{id}", name="deletepost", requirements={"id": "\d+"})
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function deletePostAction($id) {
+        $em = $this->get('doctrine')->getManager();
+
+        // get post for id
+        $query = $em->createQuery('SELECT p FROM AppBundle:Post p WHERE p.id = ?1');
+        $query->setParameter(1, $id);
+        $results = $query->getResult();
+                
+        if (!empty($results)) {
+            $em->remove($results[0]);
+            $em->flush();  
         }
 
-        return $this->render('editPost.html.twig', [
-                    'title' => "Edit Post",
-                    'form' => $form->createView(),
-                    'errors' => $errors,
-        ]);
-    }
- 
-    /**
-     * @Route("/showmyblog", name="delete_post")
-     */        
-    public function deletePostAction(Post $dPost){
-        $em->remove($dPost);
+        return $this->redirectToRoute('myblog');
     }
 
 }

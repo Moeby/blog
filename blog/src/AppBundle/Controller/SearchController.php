@@ -11,6 +11,7 @@ class SearchController extends Controller {
 
     /**
      * @Route("/search", name="search")
+     * @Security("has_role('ROLE_USER')")
      */
     public function searchAction(Request $request) {
         

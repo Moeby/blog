@@ -1,0 +1,53 @@
+{# Print my Blog Twig Template #}
+{% extends 'base.html.twig' %}
+{% block stylingdiv %}<div id="blog">{% endblock %}
+    {% block header %}
+        <header>
+            <div id="centerTitle">
+                <h1>{{ title }}</h1>
+            </div>
+            <section class="main">
+                <div class="search" >
+                    <input type="text" name="q" placeholder="Search..." />
+                    <ul class="results" >
+                        {% if searchBlogs is not empty %}
+                            {% for user in searchBlogs %}
+                                <li><a href="{{ path('showblog', {'id': user.getId()}) }}">{{ user.getUsername() }}</a></li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+                </div>
+            </section>
+        </header>
+    {% endblock %}
+    {% block description %}
+        <div id="description">
+            {{ description }}
+        </div>
+    {% endblock %}
+    {% block body %}
+        {% if app.user.getUsername() == title %}
+        <form action="{{ path('newpost') }}">
+            <button type="submit" id="addPost" class="btn btn-default btn-circle">+</button>
+        </form>
+        {% endif %}
+        <span class="clear"></span>
+        {% if posts is not empty %}
+            {% for post in posts %}
+                <div class="post">
+                    <h2>{{ post.getTitle()|raw }}</h2> 
+                    <p>{{ post.getText()|raw }}</p>
+                    <form class="bottom" action="{{ path('editpost', {'id': post.getId()}) }}" method="POST">
+                        <input type="hidden" name="post_id" value="{{ post.getId() }}">
+                        <button type="submit" class="btn btn-default btn-circle editPost"><img src="https://cdn0.iconfinder.com/data/icons/files-documents/512/YPS__file_document_pencil_pen_white_page_to_sign_signature_signed_sign_sheet_contract_paper_page_text-512.png" alt="edit"></button>
+                    </form>
+                    {% if app.user.getUsername() == title %}
+                    <form  class="bottom" action="{{ path('deletepost', {'id': post.getId()}) }}" method="POST">
+                        <input type="hidden" name="post_id" value="{{ post.getId() }}">
+                        <button type="submit" class="btn btn-default btn-circle deletePost">-</button>
+                    </form>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endblock %}

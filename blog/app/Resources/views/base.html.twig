@@ -18,13 +18,13 @@
                         <div id="centerTitle">
                             <h1>{{ title }}</h1>
                         </div>
-                        <input id="search" type="text" name="search" placeholder="Search blog">
                     </header>
                 {% endblock %}
-                <div id="body">
-                {% block body %}{% endblock %}
-            </div>
+            {% block description %}{% endblock %}
+            <div id="body">
+            {% block body %}{% endblock %}
         </div>
     </div>
+</div>
 </body>
 </html>

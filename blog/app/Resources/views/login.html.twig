@@ -2,9 +2,13 @@
 {% extends 'base.html.twig' %}
 {% block stylingdiv %}<div id="login">{% endblock %}
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+<form action="{{ path('login_check') }}" method="post">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="_username" value="{{ last_username }}" />
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="_password" />
+    <button type="submit">login</button>
+</form>
 
     {% if error is not empty %}
         <div id="errors">

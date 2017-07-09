@@ -23,7 +23,6 @@ class UserManagementController extends Controller {
      * @Route("/login_check", name="login_check")
      */
     public function checkLoginAction(){
-        
     }
 
     /**
@@ -33,12 +32,12 @@ class UserManagementController extends Controller {
         $error = $authUtils->getLastAuthenticationError();
         $lastUsername = $authUtils->getLastUsername();
         
-        $em = $this->get('doctrine')->getManager();
+        
         $user = new User();
         $form = $this->createFormBuilder($user)
                 ->setAction($this->generateUrl('login_check'))
-                ->add('username', TextType::class)
-                ->add('password', PasswordType::class)
+                ->add('username', TextType::class, array('property_path' => '_username'))
+                ->add('password', PasswordType::class, array('property_path' => '_password'))
                 ->add('save', SubmitType::class, array('label' => 'Login'))
                 ->getForm()
         ;
