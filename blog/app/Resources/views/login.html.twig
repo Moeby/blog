@@ -1,19 +1,19 @@
 {# Login Twig Template #}
 {% extends 'base.html.twig' %}
 {% block stylingdiv %}<div id="login">{% endblock %}
-{% block body %}
-<form action="{{ path('login_check') }}" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" />
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="_password" />
-    <button type="submit">login</button>
-</form>
-
-    {% if error is not empty %}
-        <div id="errors">
+    {% block body %}
+        <form action="{{ path('login_check') }}" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" />
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="_password" />
+            <button type="submit">login</button>
+        </form>
+        {% if error is not empty %}
+            <div id="errors">
                 <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
-        </div>
-    {% endif %}
-    <a href="{{ path('signup') }}">Sign up here!</a>
-{% endblock %}
+            </div>
+        {% endif %}
+        <a href="{{ path('signup') }}">Sign up here!</a>
+    {% endblock %}
+{% block footer %}{% endblock %} 

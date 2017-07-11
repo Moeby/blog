@@ -23,6 +23,11 @@
             {% block description %}{% endblock %}
             <div id="body">
             {% block body %}{% endblock %}
+            {% block footer %}
+                <a id="logoutbutton" href="{{ path('logout') }}"><img src="https://openclipart.org/image/2400px/svg_to_png/197891/mono-logout.png" height="25px" alt="logout"></a>
+                <div id="footer">   
+                </div>
+            {% endblock %}
         </div>
     </div>
 </div>

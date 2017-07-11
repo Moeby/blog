@@ -4,7 +4,6 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class BlogController extends Controller {
@@ -13,7 +12,7 @@ class BlogController extends Controller {
      * @Route("/myblog", name="myblog")
      * @Security("has_role('ROLE_USER')")
      */
-    public function showMyBlog(Request $request) {
+    public function showMyBlog() {
 
         $em = $this->get('doctrine')->getManager();
         $user = $this->getUser();
@@ -38,7 +37,7 @@ class BlogController extends Controller {
      * @Route("/blog/{id}", name="showblog", requirements={"id": "\d+"})
      * @Security("has_role('ROLE_USER')")
      */
-    public function showBlog($id, Request $request) {
+    public function showBlog($id) {
 
         $em = $this->get('doctrine')->getManager();
         $query = $em->createQuery('SELECT u FROM AppBundle:User u WHERE u.id = ?1');

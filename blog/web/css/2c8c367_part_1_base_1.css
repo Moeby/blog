@@ -71,10 +71,6 @@ label {
     float: right;
 }
 
-#login a {
-    margin-left: 110px;
-}
-
 /*errors styling*/
 #errors p {
     color: red;
@@ -89,6 +85,12 @@ label {
     border-radius: 50% !important;
     width: 35px;
     height: 35px;
+}
+
+.logoutbutton {
+    color: #f5f5f5;
+    background-color: crimson !important;
+    border-color: rgba(255,255,255,.15);
 }
 
 #addPost {
@@ -152,8 +154,6 @@ form.bottom{
     display: inline-block;
     float: right;
 }
-
-
 
 /*search box*/
 
@@ -343,3 +343,12 @@ input {
 }
 
 .lt-ie9 .search input { line-height: 26px }
+
+/* footer */
+#logoutbutton {
+    float: right;
+}
+
+#footer {
+    clear: both;
+}
