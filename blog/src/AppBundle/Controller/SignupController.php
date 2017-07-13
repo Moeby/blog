@@ -29,7 +29,6 @@ class SignupController extends Controller {
                     'type' => PasswordType::class,
                     'first_options' => array('label' => 'Password'),
                     'second_options' => array('label' => 'Repeat password')))
-                ->add('description', TextareaType::class )
                 ->add('save', SubmitType::class, array('label' => 'Signup'))
                 ->getForm()
         ;
@@ -67,6 +66,8 @@ class SignupController extends Controller {
     public function createBlogAction() {
         $em = $this->get('doctrine')->getManager();
         $blog = new Blog();
+        $blog->setBlogDescription("Default description");
+        $blog->setBlogName("Default blog name");
         $em->persist($blog);
         $em->flush();
 
