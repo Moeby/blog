@@ -52,6 +52,46 @@ class Post
      */
     private $blog;
 
+    function getTitle() {
+        return $this->title;
+    }
+
+    function getText() {
+        return $this->text;
+    }
+
+    function getPublishedDate(): \DateTime {
+        return $this->publishedDate;
+    }
+
+    function getId() {
+        return $this->id;
+    }
+
+    function getBlog(): \AppBundle\Entity\Blog {
+        return $this->blog;
+    }
+
+    function setTitle($title) {
+        $this->title = $title;
+    }
+
+    function setText($text) {
+        $this->text = $text;
+    }
+
+    function setPublishedDate(\DateTime $publishedDate) {
+        $this->publishedDate = $publishedDate;
+    }
+
+    function setId($id) {
+        $this->id = $id;
+    }
+
+    function setBlog(\AppBundle\Entity\Blog $blog) {
+        $this->blog = $blog;
+    }
+
 
 }
 

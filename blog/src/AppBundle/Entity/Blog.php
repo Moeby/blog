@@ -35,6 +35,29 @@ class Blog
      */
     private $id;
 
+    function getBlogName() {
+        return $this->blogName;
+    }
+
+    function getBlogDescription() {
+        return $this->blogDescription;
+    }
+
+    function getId() {
+        return $this->id;
+    }
+
+    function setBlogName($blogName) {
+        $this->blogName = $blogName;
+    }
+
+    function setBlogDescription($blogDescription) {
+        $this->blogDescription = $blogDescription;
+    }
+
+    function setId($id) {
+        $this->id = $id;
+    }
 
 }
 
