@@ -4,7 +4,7 @@
     {% block header %}
         <header>
             <div id="centerTitle">
-                <h1>{{ blog.getBlogName }}</h1>
+                <h1>{{ blog.getBlogName |raw  }}</h1>
             </div>
             <section class="main">
                 <div class="search" >
@@ -22,7 +22,7 @@
     {% endblock %}
     {% block description %}
         <div id="description">
-            {{ blog.getBlogDescription }}
+            {{ blog.getBlogDescription |raw  }}
         </div>
     {% endblock %}
     {% block body %}

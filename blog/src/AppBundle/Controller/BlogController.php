@@ -4,6 +4,10 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class BlogController extends Controller {
@@ -79,7 +83,7 @@ class BlogController extends Controller {
         if (!empty($results)) {
             $form = $this->createFormBuilder($results[0])
                     ->add('blogname', TextType::class)
-                    ->add('description', TextareaType::class, array(
+                    ->add('blogdescription', TextareaType::class, array(
                     'attr' => array(
                         'class' => 'tinymce')
                     ))
@@ -103,6 +107,7 @@ class BlogController extends Controller {
                         'title' => "Edit Blog",
                         'form' => $form->createView(),
                         'errors' => null,
+                        'username' => $this->getUser()->getUsername(),
             ]);
         }
     }
