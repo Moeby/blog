@@ -30,6 +30,12 @@ class User implements UserInterface,\Serializable
      */
     private $password;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", length=65535, nullable=true)
+     */
+    private $description;
 
     /**
      * @var integer
@@ -98,6 +104,30 @@ class User implements UserInterface,\Serializable
     public function getPassword()
     {
         return $this->password;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return User
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 
     /**

@@ -13,20 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Blog
 {
     /**
-     * @var string
-     *
-     * @ORM\Column(name="blog_name", type="string", length=45, nullable=false)
-     */
-    private $blogName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="blog_description", type="string", length=45, nullable=false)
-     */
-    private $blogDescription;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -36,5 +22,14 @@ class Blog
     private $id;
 
 
-}
 
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+}
