@@ -88,6 +88,7 @@ class PostController extends Controller {
                         'title' => "Edit Post",
                         'form' => $form->createView(),
                         'errors' => null,
+                        'username' => $this->getUser()->getUsername(),
             ]);
         }
     }
