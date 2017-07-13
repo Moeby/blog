@@ -21,8 +21,12 @@ class PostController extends Controller {
         $post = new Post();
         $form = $this->createFormBuilder($post)
                 ->add('title', TextType::class)
-                ->add('text', TextareaType::class)
-                ->add('add', SubmitType::class, array('label' => 'AddPost'))
+                ->add('text', TextareaType::class, array(
+                    'attr' => array(
+                        'class' => 'tinymce')
+                    )
+                )
+                ->add('add', SubmitType::class, array('label' => 'Submit'))
                 ->getForm()
         ;
         $form->handleRequest($request);
@@ -60,8 +64,11 @@ class PostController extends Controller {
         if (!empty($results)) {
             $form = $this->createFormBuilder($results[0])
                     ->add('title', TextType::class)
-                    ->add('text', TextareaType::class)
-                    ->add('save', SubmitType::class, array('label' => 'EditPost'))
+                    ->add('text', TextareaType::class, array(
+                    'attr' => array(
+                        'class' => 'tinymce')
+                    ))
+                    ->add('save', SubmitType::class, array('label' => 'Submit'))
                     ->getForm()
             ;
 

@@ -68,7 +68,7 @@ label {
     width : 250px;
 }
 #form_save {
-    float: right;
+    margin-top: 10px;
 }
 
 /*errors styling*/

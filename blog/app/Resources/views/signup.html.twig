@@ -1,9 +1,10 @@
 {# Login Twig Template #}
 {% extends 'base.html.twig' %}
 {% block stylingdiv %}<div id="login">{% endblock %}
-{% block body %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
-{% endblock %}
-{% block footer %}{% endblock %} 
+    {% block body %}
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    {% endblock %}
+    {% block footer %}
+    {% endblock %} 
