@@ -28,7 +28,7 @@
     {% block body %}
         {% if app.user.getUsername() == username %}
         <form action="{{ path('editblog', {'id': blog.getId()}) }}">
-            <button type="submit" id="editBlog" class="btn btn-default btn-circle"><img src="https://cdn0.iconfinder.com/data/icons/files-documents/512/YPS__file_document_pencil_pen_white_page_to_sign_signature_signed_sign_sheet_contract_paper_page_text-512.png" alt="edit"></button>
+            <button type="submit" id="editBlog" class="btn btn-default btn-circle editPost"><img src="https://cdn0.iconfinder.com/data/icons/files-documents/512/YPS__file_document_pencil_pen_white_page_to_sign_signature_signed_sign_sheet_contract_paper_page_text-512.png" alt="edit"></button>
         </form>
         <form action="{{ path('newpost') }}">
             <button type="submit" id="addPost" class="btn btn-default btn-circle">+</button>
