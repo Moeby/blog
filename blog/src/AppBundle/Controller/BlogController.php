@@ -25,7 +25,7 @@ class BlogController extends Controller {
         $query->setParameter(1, $user->getBlog());
         $posts = $query->getResult();
 
-        $query = $em->createQuery('SELECT u FROM AppBundle:User u WHERE u.username != ?1');
+        $query = $em->createQuery('SELECT u FROM AppBundle:User u WHERE u.username != ?1 ORDER BY u.username ASC');
         $query->setParameter(1, $user->getUsername());
         $otherBlogs = $query->getResult();
 
