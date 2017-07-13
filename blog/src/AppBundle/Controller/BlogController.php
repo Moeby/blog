@@ -26,10 +26,10 @@ class BlogController extends Controller {
         $otherBlogs = $query->getResult();
 
         return $this->render('showBlog.html.twig', [
-                    'title' => $user->getBlog()->getBlogName(),
+                    'username' => $user->getUserName(),
                     'posts' => $posts,
-                    'description' => $user->getBlog()->getDescription(),
-                    'searchBlogs' => $otherBlogs
+                    'searchBlogs' => $otherBlogs,
+                    'blog' => $user->getBlog()
         ]);
     }
 
@@ -55,10 +55,10 @@ class BlogController extends Controller {
             $otherBlogs = $query->getResult();
 
             return $this->render('showBlog.html.twig', [
-                        'title' => $user->getUserName(),
+                        'username' => $user->getUserName(),
                         'posts' => $posts,
-                        'description' => $user->getDescription(),
-                        'searchBlogs' => $otherBlogs
+                        'searchBlogs' => $otherBlogs,
+                        'blog' => $user->getBlog()
             ]);
         }
         return $this->redirectToRoute('myblog');
