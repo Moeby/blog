@@ -5,6 +5,10 @@
         {{ form_start(form) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}
+        {% if error is not empty %}
+            <div id="errors">
+             <p>{{ error }}</p>
+        {% endif %}
     {% endblock %}
     {% block footer %}
     {% endblock %} 
