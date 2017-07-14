@@ -24,13 +24,12 @@ class PostController extends Controller {
                 ->add('text', TextareaType::class, array(
                     'attr' => array(
                         'class' => 'tinymce')
-                    )
+                        )
                 )
                 ->add('add', SubmitType::class, array('label' => 'Submit'))
                 ->getForm()
         ;
         $form->handleRequest($request);
-        $errors = $form->getErrors(true);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->get('doctrine')->getManager();
@@ -45,7 +44,7 @@ class PostController extends Controller {
         return $this->render('editPost.html.twig', [
                     'title' => "Add Post",
                     'form' => $form->createView(),
-                    'errors' => $errors,
+                    'username' => $this->getUser()->getUsername(),
         ]);
     }
 
@@ -65,8 +64,8 @@ class PostController extends Controller {
             $form = $this->createFormBuilder($results[0])
                     ->add('title', TextType::class)
                     ->add('text', TextareaType::class, array(
-                    'attr' => array(
-                        'class' => 'tinymce')
+                        'attr' => array(
+                            'class' => 'tinymce')
                     ))
                     ->add('save', SubmitType::class, array('label' => 'Submit'))
                     ->getForm()
@@ -80,14 +79,13 @@ class PostController extends Controller {
                 $post = $form->getData();
                 $em->persist($post);
                 $em->flush();
-                
+
                 return $this->redirectToRoute('myblog');
             }
 
             return $this->render('editPost.html.twig', [
                         'title' => "Edit Post",
                         'form' => $form->createView(),
-                        'errors' => null,
                         'username' => $this->getUser()->getUsername(),
             ]);
         }
@@ -104,10 +102,10 @@ class PostController extends Controller {
         $query = $em->createQuery('SELECT p FROM AppBundle:Post p WHERE p.id = ?1');
         $query->setParameter(1, $id);
         $results = $query->getResult();
-                
+
         if (!empty($results)) {
             $em->remove($results[0]);
-            $em->flush();  
+            $em->flush();
         }
 
         return $this->redirectToRoute('myblog');

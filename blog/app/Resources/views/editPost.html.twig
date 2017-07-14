@@ -6,14 +6,6 @@
         {{ form_start(form) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}
-
-        {% if errors is not empty %}
-            <div id="errors">
-                {% for error in errors %}
-                    <p>{{ error.messageKey|trans(error.messageData, 'security') }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
     {% else %}
         <h2>You are not allowed to edit this post.</h2>
     {% endif %}
